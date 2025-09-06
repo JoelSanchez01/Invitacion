@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es" class="reveal">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Invitación Baby Shower</title>
+
+    <!-- Fuente Dancing Script -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- anime.js (animación suave de entrada) -->
+    <script src="https://unpkg.com/animejs@3.2.2/lib/anime.min.js" defer></script>
+    <script src="./main.js" defer></script>
+</head>
+
+<body class="body">
+
+    <img src="./assets/images/esquina.png" alt="decoración esquina" class="corner-img">
+
+    <div class="carreoladiv">
+        <!-- Texto curvo más abierto y más abajo -->
+        <svg viewBox="0 0 600 260" width="100%" height="220" preserveAspectRatio="xMidYMid meet" class="sv"
+            style="display:block;margin:0 auto;">
+            <!-- Arco más ancho y más abajo (Y = 240) -->
+            <path id="curve" d="M 50 240 A 250 250 0 0 1 550 240" fill="transparent" stroke="transparent" />
+
+            <text font-size="20" fill="#333" letter-spacing="6px">
+                <textPath href="#curve" startOffset="50%" text-anchor="middle">
+                    Con mucha alegría esperamos la llegada de
+                </textPath>
+            </text>
+        </svg>
+
+        <!-- Imagen central -->
+        <img src="./assets/images/carreola.png" alt="carreola" class="imgcarreola">
+        <p class="nuestrapeque">nuestra pequeña</p>
+        <h1 class="namebb">Ana Victoria</h1>
+    </div>
+
+    <div class="invitacion">
+        <p id="nombre">Nombre</p>
+        <h2 class="subtitulo">Te invitamos a su</h2>
+        <h1 class="titulo">Baby Shower</h1>
+        <p class="detalle">25 de octubre, 05:00 PM</p>
+
+    </div>
+
+
+</body>
+
+</html>
