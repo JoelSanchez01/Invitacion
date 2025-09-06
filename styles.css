@@ -1,11 +1,16 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
 body {
     margin: 0;
     min-height: 100vh;
     background: url("./assets/images/fondo.png") no-repeat center center fixed;
     background-size: cover;
-    /* Ajusta la imagen para cubrir toda la pantalla */
+    /* se adapta a toda la pantalla */
     background-attachment: fixed;
-    /* Hace que el fondo no se mueva al hacer scroll */
+    /* este es el truco */
     font-family: 'Noto Serif', serif;
 }
 
@@ -30,6 +35,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin-top: 100px;
+    margin-bottom: -120px;
     /* ocupa toda la pantalla */
     text-align: center;
     background: none;
@@ -38,7 +45,7 @@ body {
     font-weight: 600;
 }
 
-.carreoladiv img {
+.carreoladiv .imgcarreola {
     width: 200px;
     height: auto;
     margin-top: -150px;
@@ -56,30 +63,91 @@ body {
     margin: 0;
 }
 
+.carreoladiv .ramo {
+    width: 200px;
+    height: auto;
+
+}
+
+
+
 .invitacion {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 50px;
     font-family: 'Dancing Script', cursive;
+    height: 100vh;
 }
 
 .invitacion #nombre {
-    font-size: 16px;
+    font-size: 2.3rem;
     margin-bottom: 8px;
 }
 
 .invitacion .subtitulo {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: normal;
     margin: 0;
 }
 
 .invitacion .titulo {
-    font-size: 32px;
+    font-size: 3rem;
     margin: 5px 0 15px 0;
     font-family: 'Dancing Script', cursive;
 }
 
 .invitacion .detalle {
-    font-size: 16px;
+    font-size: 1.5rem;
     margin: 4px 0;
+}
+
+.invitacion .contador {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+    font-family: 'Noto Serif', serif;
+}
+
+.invitacion .contador div {
+    text-align: center;
+}
+
+.invitacion .contador .contbox {
+    background-color: #ffff;
+    padding: 10px;
+}
+
+.invitacion .contador span {
+    display: block;
+    font-size: 14px;
+    color: #666;
+}
+
+.invitacion .textUbi {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+}
+
+.invitacion .invitacion__btn {
+    font-family: "Poppins", sans-serif;
+    display: inline-block;
+    margin-top: 5px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    background: none;
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.invitacion__btn:hover {
+    background: #333;
+    color: #fff;
 }
