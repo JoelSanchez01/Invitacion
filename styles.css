@@ -79,7 +79,7 @@ body {
     text-align: center;
     margin-top: 50px;
     font-family: 'Dancing Script', cursive;
-    height: 100vh;
+    height: auto;
 }
 
 .invitacion #nombre {
@@ -150,4 +150,91 @@ body {
 .invitacion__btn:hover {
     background: #333;
     color: #fff;
+}
+
+.carrusel {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* Importante para gestos: permite scroll vertical y swipe horizontal */
+    touch-action: pan-y;
+    filter: grayscale();
+}
+
+.carrusel__contenedor {
+    display: flex;
+    /* quitamos transition fija; animaremos con anime.js al soltar */
+    will-change: transform;
+}
+
+.carrusel__item {
+    min-width: 100%;
+}
+
+.carrusel__item img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+}
+
+/* Feedback de arrastre (opcional) */
+.carrusel.grabbing {
+    cursor: grabbing;
+}
+
+.regalos {
+    height: auto;
+    padding: 0 50px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.regalos p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+}
+
+.regalos a {
+    font-family: "Poppins", sans-serif;
+    display: inline-block;
+    margin-top: 5px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    background: none;
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.regalos img {
+    width: 200px;
+    margin-top: 20px;
+    height: auto;
+    margin-bottom: 50px;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -20000px;
+}
+
+.bottom .bottomFlores {
+    margin-top: -100px;
+    /* mueve hacia abajo */
+    width: 100%;
+    height: auto;
 }
