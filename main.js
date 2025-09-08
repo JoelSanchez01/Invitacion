@@ -184,3 +184,279 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+// ====== POLEN FLOTANTE (anime.js) ======
+(function initPollen() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  const layer = document.querySelector(".pollen-layer");
+  if (!layer) return;
+
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+
+  function makeDot() {
+    const el = document.createElement("div");
+    el.className = "pollen";
+    // tamaño aleatorio
+    const r = Math.random();
+    if (r < 0.33) el.classList.add("pollen--sm");
+    else if (r > 0.75) el.classList.add("pollen--lg");
+
+    // posición inicial
+    const x = Math.random() * W;
+    const y = H + Math.random() * 40;
+    el.style.transform = `translate(${x}px, ${y}px)`;
+    layer.appendChild(el);
+
+    animateDot(el);
+    return el;
+  }
+
+  function animateDot(el) {
+    const driftX = Math.random() * 80 - 40;
+    const rise = H + 120;
+    const dur = 8000 + Math.random() * 6000;
+    const delay = Math.random() * 2000;
+    const fadeIn = 600 + Math.random() * 600;
+
+    el.style.opacity = 0;
+
+    anime
+      .timeline({
+        autoplay: true,
+        complete: () => {
+          // Reinicia en otro punto (ciclo infinito)
+          const x = Math.random() * window.innerWidth;
+          const y = window.innerHeight + Math.random() * 40;
+          anime.set(el, { translateX: x, translateY: y, opacity: 0 });
+          animateDot(el);
+        },
+      })
+      .add({
+        targets: el,
+        opacity: [0, 0.85],
+        duration: fadeIn,
+        easing: "easeOutQuad",
+        delay,
+      })
+      .add(
+        {
+          targets: el,
+          translateX: `+=${driftX}`,
+          translateY: `-=${rise}`,
+          duration: dur,
+          easing: "easeInOutSine",
+        },
+        `-=${Math.min(fadeIn, 500)}`
+      )
+      .add(
+        {
+          targets: el,
+          opacity: [0.85, 0],
+          duration: 700,
+          easing: "easeInQuad",
+        },
+        `-=${600}`
+      );
+  }
+
+  // --- 1) Burst inicial fuerte ---
+  for (let i = 0; i < 70; i++) makeDot(); // 50 de golpe
+
+  // --- 2) Ambiente constante (cada cierto tiempo uno nuevo) ---
+  setInterval(() => {
+    makeDot();
+  }, 1000); // cada 3 segundos aparece uno nuevo
+
+  // --- Opcional: limpiar/recrear al resize ---
+  let resizeTO;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTO);
+    resizeTO = setTimeout(() => {
+      // aquí podrías resetear el polen si quieres
+    }, 150);
+  });
+})();
+
+// ====== Aparición del título "Ana Victoria" (h1.namebb) ======
+(function animateNamebb() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const title = document.querySelector(".namebb");
+  if (!title) return;
+
+  // Envolver cada carácter en <span class="char">
+  const original = title.textContent;
+  title.textContent = "";
+  const frag = document.createDocumentFragment();
+  [...original].forEach((ch) => {
+    const span = document.createElement("span");
+    span.className = "char";
+    span.textContent = ch;
+    frag.appendChild(span);
+  });
+  title.appendChild(frag);
+
+  if (reduce) return; // respeta reduce-motion
+
+  // Estado inicial
+  anime.set(".namebb .char", { opacity: 0, translateY: 12 });
+
+  // Timeline: abre un poco el tracking y entra letra por letra
+  const tl = anime.timeline({ autoplay: true });
+  tl.add({
+    targets: ".namebb",
+    letterSpacing: ["0.5px", "2px"],
+    scale: [0.98, 1],
+    duration: 800,
+    easing: "easeOutCubic",
+  }).add(
+    {
+      targets: ".namebb .char",
+      opacity: [0, 1],
+      translateY: [12, 0],
+      duration: 2000,
+      delay: anime.stagger(35),
+      easing: "easeOutQuad",
+    },
+    "-=400"
+  );
+})();
+
+// Texto curvo (el <text> dentro del svg .sv)
+(function animateCurveText() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  const curveText = document.querySelector(".sv text");
+  if (!curveText) return;
+  anime.set(curveText, { opacity: 0, translateY: -8, letterSpacing: "2px" });
+  anime({
+    targets: curveText,
+    opacity: 1,
+    translateY: 0,
+    letterSpacing: "6px",
+    duration: 2000,
+    delay: 150,
+    easing: "easeOutQuad",
+  });
+})();
+
+// Carreola (suave “float”), y "nuestra pequeña" + ramo en fade-in
+(function animateOthers() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  const carreola = document.querySelector(".imgcarreola");
+  const subt = document.querySelector(".nuestrapeque");
+  const ramo = document.querySelector(".ramo");
+
+  if (carreola) {
+    anime({
+      targets: carreola,
+      translateY: [0, -6],
+      duration: 2200,
+      easing: "easeInOutSine",
+      direction: "alternate",
+      loop: true,
+    });
+  }
+
+  [subt, ramo].forEach((el, i) => {
+    if (!el) return;
+    anime.set(el, { opacity: 0, translateY: 10 });
+    anime({
+      targets: el,
+      opacity: 1,
+      translateY: 0,
+      duration: 2000,
+      delay: 300 + i * 120,
+      easing: "easeOutQuad",
+    });
+  });
+})();
+
+(function animateGiftSectionNoClasses() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  const regalos = document.querySelector(".regalos");
+  if (!regalos) return;
+
+  const texto = regalos.querySelector("p");
+  const boton = regalos.querySelector("a[href]");
+  const sobre = regalos.querySelector("img[src*='sobre']");
+  const cenefa = document.querySelector(".bottom .bottomFlores");
+
+  const revealOne = (el, opts = {}) => {
+    if (!el) return;
+    anime.set(el, { opacity: 0, translateY: 12 });
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          anime({
+            targets: el,
+            opacity: 1,
+            translateY: 0,
+            duration: 800,
+            easing: "easeOutQuad",
+            ...opts,
+          });
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(el);
+  };
+
+  revealOne(texto);
+  revealOne(boton, {
+    scale: [0.95, 1],
+    duration: 900,
+    easing: "spring(1,80,10,0)",
+  });
+
+  if (sobre) {
+    anime.set(sobre, { opacity: 0, scale: 0.92, translateY: 12 });
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          anime({
+            targets: sobre,
+            opacity: 1,
+            scale: 1,
+            translateY: 0,
+            duration: 800,
+            easing: "easeOutCubic",
+            complete: () => {
+              anime({
+                targets: sobre,
+                translateY: [0, -6],
+                duration: 2400,
+                easing: "easeInOutSine",
+                direction: "alternate",
+                loop: true,
+              });
+            },
+          });
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(sobre);
+  }
+
+  if (cenefa) {
+    anime({
+      targets: cenefa,
+      translateY: [0, 4],
+      rotate: [-0.5, 0.5],
+      duration: 2600,
+      easing: "easeInOutSine",
+      direction: "alternate",
+      loop: true,
+    });
+  }
+})();

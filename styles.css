@@ -69,6 +69,11 @@ body {
 
 }
 
+.namebb .char {
+    display: inline-block;
+    will-change: transform, opacity;
+}
+
 
 
 .invitacion {
@@ -78,7 +83,7 @@ body {
     align-items: center;
     text-align: center;
     margin-top: 50px;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', serif;
     height: auto;
 }
 
@@ -96,7 +101,7 @@ body {
 .invitacion .titulo {
     font-size: 3rem;
     margin: 5px 0 15px 0;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', serif;
 }
 
 .invitacion .detalle {
@@ -237,4 +242,43 @@ body {
     /* mueve hacia abajo */
     width: 100%;
     height: auto;
+}
+
+
+
+/* Capa que cubre toda la ventana para el polen */
+.pollen-layer {
+    position: fixed;
+    /* sigue visible al hacer scroll */
+    inset: 0;
+    pointer-events: none;
+    /* no tapa clics */
+    z-index: 0;
+    /* debajo de tu contenido si lo tienes con z-index:1 */
+    overflow: hidden;
+}
+
+/* Partícula de polen */
+.pollen {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 30%, #ffe78a 0%, #ffd65a 60%, #ffc94c 100%);
+    opacity: 0.0;
+    /* la animación la hará aparecer */
+    filter: blur(0.3px);
+    /* muy sutil para que no sea duro */
+    will-change: transform, opacity;
+}
+
+/* Tamaños variantes (opcionales) */
+.pollen--sm {
+    width: 4px;
+    height: 4px;
+}
+
+.pollen--lg {
+    width: 8px;
+    height: 8px;
 }
